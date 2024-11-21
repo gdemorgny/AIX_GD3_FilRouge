@@ -4,21 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "State.h"
-#include "PlayerFSM.generated.h"
+#include "MemoryCard.generated.h"
 
 UCLASS()
-class AIX_GD3_FILROUGE_API APlayerFSM : public AActor
+class AIX_GD3_FILROUGE_API AMemoryCard : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APlayerFSM();
+	AMemoryCard();
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bIsClickable = true;
 
-	UPROPERTY()
-	AState* CurrentState;
+	
 
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -27,10 +28,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+	void TurnCard();
 
-	UFUNCTION()
-	void ChangeState(AState newState);
-	UFUNCTION()
-	void Comportement();
-
+	
 };
