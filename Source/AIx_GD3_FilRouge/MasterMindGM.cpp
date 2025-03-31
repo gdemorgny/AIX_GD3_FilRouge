@@ -15,7 +15,7 @@ AMasterMindGM::AMasterMindGM()
 void AMasterMindGM::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	CreateSolution();
 }
 
 // Called every frame
@@ -48,7 +48,43 @@ void AMasterMindGM::CreateSolution()
 
 bool AMasterMindGM::CheckAnswer(TArray<uint8> Answer)
 {
+	bool result = true;
+	uint8 GoodPlaces = 0;
+	uint8 WrongPlaces = 0;
+	TArray<bool> SolutionsAllowed {true,true,true,true};
+	TArray<bool> AnswersAllowed {true,true,true,true};
+	for(uint8 i = 0; i < 4; i++)
+	{
+		if(Solution[i] == Answer[i])
+		{
+			SolutionsAllowed[i] = false;
+			AnswersAllowed[i] = false;
+			GoodPlaces++;
+		} else
+		{
+			result = false;
+		}
+	}
+	// GoodPlaces contient le nombre de réponses bien placées
+
+
+	// Recherche des réponses mal placées
+	for(uint8 i = 0; i < 4; i++)
+	{
+		if(AnswersAllowed[i])
+		{
+			for(uint8 j = 0; j < 4; j++)
+			{
+				if(SolutionsAllowed[j] && Answer[i] == Solution[j])
+				{
+					WrongPlaces++;
+					SolutionsAllowed[j] = false;
+					break;
+				}
+			}
+		}
+	}
 	UE_LOG(LogTemp,Warning,TEXT("CheckAnswer Done"));
-	return true;
+	return result;
 }
 
