@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "MasterMindGM.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSolutionChecked,uint8,GoodPlaces,uint8,WrongPlaces);
 
 UCLASS()
 class AIX_GD3_FILROUGE_API AMasterMindGM : public AActor
@@ -16,6 +17,9 @@ public:
 	// Sets default values for this actor's properties
 	AMasterMindGM();
 
+	UPROPERTY()
+	FOnSolutionChecked OnSolutionChecked;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Settings")
 	TArray<FLinearColor> Colors {FLinearColor::Red,FLinearColor::Yellow,FLinearColor::Green,FLinearColor::Blue,FLinearColor::Gray,FLinearColor::White};
 

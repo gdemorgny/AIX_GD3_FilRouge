@@ -84,6 +84,8 @@ bool AMasterMindGM::CheckAnswer(TArray<uint8> Answer)
 			}
 		}
 	}
+
+	OnSolutionChecked.Broadcast(GoodPlaces,WrongPlaces);
 	UE_LOG(LogTemp,Warning,TEXT("CheckAnswer Done"));
 	return result;
 }
